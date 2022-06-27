@@ -117,6 +117,7 @@ insert into aluno (nome, cpf, data_nascimento) values ('William Bigas Mauro', '0
 insert into aluno (nome, cpf, data_nascimento) values ('Josiel Soares', '00397821635', '1994-09-13');
 
 
+
 -- update no id do aluno
 update aluno set ativo = 'true' where id = 5
 update aluno set observacao = 'aluno matriculado' where id = 5
@@ -145,6 +146,13 @@ insert into curso (codigo, nome) values (null, 'curso de HTML')
 insert into curso (codigo, nome) values (23, 'curso de HTML');
 insert into curso (codigo, nome) values (12, 'java script');
 insert into curso (codigo, nome) values (25, 'Java');
+insert into curso (codigo, nome) values (26, 'Java');
+insert into curso (codigo, nome) values (27, 'Java 3');
+insert into curso (codigo, nome) values (28, 'Java 4');
+insert into curso (codigo, nome) values (29, 'Java 5');
+
+-- update no nome do curso com where no código
+update curso set nome = 'Java 2' where codigo = 26
 
 -- selecionar as tabelas que serão relacionadas 
 select * from aluno
@@ -188,10 +196,14 @@ select
     a.observacao as "Observações",
     c.nome as "Nome do curso",
     ac.curso_id as "ID Curso",
-    a.ativo as "Ativo"
+    a.ativo as "Ativo",
+    count(c.nome) as "Sem Curso Cadastrados"
 from aluno a 
 left join aluno_curso ac on ac.aluno_id = a.id 
 left join curso c on c.codigo = ac.curso_id
-order by a.id
+group by 1, 5, 6
+having count(c.nome) = 0
+
+
 
 
